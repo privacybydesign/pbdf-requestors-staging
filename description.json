@@ -1,6 +1,5 @@
 {
     "id": "pbdf-requestors-staging",
     "schemetype": "requestor",
-    "url": "https://schemes.staging.yivi.app/pbdf-requestors-staging",
-    "test": true
+    "url": "https://schemes.staging.yivi.app/pbdf-requestors-staging"
 }
