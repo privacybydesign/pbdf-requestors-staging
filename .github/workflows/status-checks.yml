@@ -13,6 +13,8 @@ jobs:
          - latest
     steps:
      - uses: actions/checkout@v7
+       with:
+         path: pbdf-requestors   # Older irmago versions require the directory name to be equal to the scheme identifier
 
      - name: Initialize ~/.local/bin directory
        run: |
@@ -49,7 +51,7 @@ jobs:
     steps:
      - uses: actions/checkout@v7
        with:
-         path: pbdf-requestors-staging   # Older irmago versions require the directory name to be equal to the scheme identifier
+         path: pbdf-requestors   # Older irmago versions require the directory name to be equal to the scheme identifier
 
      - name: Initialize ~/.local/bin directory
        run: |
