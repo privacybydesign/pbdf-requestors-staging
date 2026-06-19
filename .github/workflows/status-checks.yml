@@ -3,8 +3,41 @@ name: Status checks
 
 on: [ pull_request ]
 
-jobs:  
+jobs:
   verify:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        yivi-version:
+         - v1.0.0  # Introduces Yivi CLI
+         - latest
+    steps:
+     - uses: actions/checkout@v3
+
+     - name: Initialize ~/.local/bin directory
+       run: |
+         mkdir -p "$HOME/.local/bin"
+         echo "$HOME/.local/bin" >> $GITHUB_PATH
+         
+     - name: Download yivi CLI tool (latest)
+       if: matrix.yivi-version == 'latest'
+       run: wget -O "$HOME/.local/bin/yivi" https://github.com/privacybydesign/yivi/releases/latest/download/yivi-linux-amd64
+
+     - name: Download yivi CLI tool (specific version)
+       if: matrix.yivi-version != 'latest'
+       run: |
+         wget -O "$HOME/.local/bin/yivi" https://github.com/privacybydesign/yivi/releases/download/${{ matrix.yivi-version }}/yivi-linux-amd64 \
+         || wget -O "$HOME/.local/bin/yivi" https://github.com/privacybydesign/yivi/releases/download/${{ matrix.yivi-version }}/yivi-master-linux-amd64
+       shell: bash
+
+     - name: Set executable permissions
+       run: chmod +x "$HOME/.local/bin/yivi"
+
+     - name: Verify scheme
+       run: yivi irma scheme verify
+       working-directory: ./pbdf-requestors
+
+  verify-backward-compatibility:
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -16,7 +49,7 @@ jobs:
     steps:
      - uses: actions/checkout@v3
        with:
-         path: pbdf-requestors # Older irmago versions require the directory name to be equal to the scheme identifier
+         path: pbdf-requestors-staging   # Older irmago versions require the directory name to be equal to the scheme identifier
 
      - name: Initialize ~/.local/bin directory
        run: |
