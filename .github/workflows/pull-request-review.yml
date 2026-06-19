@@ -3,9 +3,9 @@ name: Pull request review
 
 on:
   # We use pull_request_target such that we can grant permissions.
-  # This means that the job specification is being pulled from master, instead of from the feature branche.
+  # This means that the job specification is being pulled from main, instead of from the feature branche.
   pull_request_target:
-    branches: [ master ]
+    branches: [ main ]
     types:
       - opened
       - reopened
