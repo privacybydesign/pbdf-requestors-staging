@@ -12,7 +12,7 @@ jobs:
          - v1.0.0  # Introduces Yivi CLI
          - latest
     steps:
-     - uses: actions/checkout@v3
+     - uses: actions/checkout@v7
 
      - name: Initialize ~/.local/bin directory
        run: |
@@ -47,7 +47,7 @@ jobs:
          - v0.10.0 # Introduces support for defining the languages into which texts should be translated
          - latest
     steps:
-     - uses: actions/checkout@v3
+     - uses: actions/checkout@v7
        with:
          path: pbdf-requestors-staging   # Older irmago versions require the directory name to be equal to the scheme identifier
 
