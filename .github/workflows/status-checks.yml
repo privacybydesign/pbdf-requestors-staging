@@ -57,13 +57,8 @@ jobs:
        run: |
          mkdir -p "$HOME/.local/bin"
          echo "$HOME/.local/bin" >> $GITHUB_PATH
-         
-     - name: Download irma CLI tool (latest)
-       if: matrix.irmago-version == 'latest'
-       run: wget -O "$HOME/.local/bin/irma" https://github.com/privacybydesign/irmago/releases/latest/download/irma-linux-amd64
 
      - name: Download irma CLI tool (specific version)
-       if: matrix.irmago-version != 'latest'
        run: |
          wget -O "$HOME/.local/bin/irma" https://github.com/privacybydesign/irmago/releases/download/${{ matrix.irmago-version }}/irma-linux-amd64 \
          || wget -O "$HOME/.local/bin/irma" https://github.com/privacybydesign/irmago/releases/download/${{ matrix.irmago-version }}/irma-master-linux-amd64
